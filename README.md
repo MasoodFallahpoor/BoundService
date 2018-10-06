@@ -1,0 +1,1 @@
+A rudimentary Android calculator app that demonstrates how to implement a [Bound Service](https://developer.android.com/guide/components/bound-services) and communicate with it.
