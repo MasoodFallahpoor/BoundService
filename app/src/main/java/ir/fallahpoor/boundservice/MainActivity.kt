@@ -8,9 +8,8 @@ import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import android.view.View
-import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,19 +50,15 @@ class MainActivity : AppCompatActivity() {
 
     fun onClick(view: View?) {
 
-        val operand1EditText = findViewById<EditText>(R.id.operand_one_edit_text)
-        val operand2EditText = findViewById<EditText>(R.id.operand_two_edit_text)
-        val resultEditText = findViewById<TextView>(R.id.result_text_view)
-
-        val operand1 = operand1EditText.text.toString().toInt()
-        val operand2 = operand2EditText.text.toString().toInt()
+        val operand1 = operandOneEditText.text.toString().toInt()
+        val operand2 = operandTwoEditText.text.toString().toInt()
 
         if (isBoundToService) {
-            resultEditText.text = when (view?.id) {
-                R.id.add_button -> boundService?.add(operand1, operand2).toString()
-                R.id.subtract_button -> boundService?.subtract(operand1, operand2).toString()
-                R.id.multiply_button -> boundService?.multiply(operand1, operand2).toString()
-                R.id.divide_button -> boundService?.divide(operand1, operand2).toString()
+            resultTextView.text = when (view?.id) {
+                R.id.addButton -> boundService?.add(operand1, operand2).toString()
+                R.id.subtractButton -> boundService?.subtract(operand1, operand2).toString()
+                R.id.multiplyButton -> boundService?.multiply(operand1, operand2).toString()
+                R.id.divideButton -> boundService?.divide(operand1, operand2).toString()
                 else -> "Unknown value"
             }
         } else {
