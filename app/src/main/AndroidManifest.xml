@@ -17,8 +17,8 @@
             </intent-filter>
         </activity>
         <service
-            android:name=".BoundService"
-            android:exported="false"/>
+            android:name=".CalculatorService"
+            android:exported="false" />
     </application>
 
 </manifest>
