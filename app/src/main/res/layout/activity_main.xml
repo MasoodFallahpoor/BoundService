@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,14 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5"/>
+        app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontalGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5"/>
+        app:layout_constraintGuide_percent="0.5" />
 
     <Button
         android:id="@+id/addButton"
@@ -30,7 +29,7 @@
         android:text="Add"
         app:layout_constraintEnd_toStartOf="@+id/verticalGuideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/horizontalGuideline"/>
+        app:layout_constraintTop_toTopOf="@+id/horizontalGuideline" />
 
     <Button
         android:id="@+id/subtractButton"
@@ -41,7 +40,7 @@
         android:text="Subtract"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/verticalGuideline"
-        app:layout_constraintTop_toTopOf="@+id/horizontalGuideline"/>
+        app:layout_constraintTop_toTopOf="@+id/horizontalGuideline" />
 
     <Button
         android:id="@+id/multiplyButton"
@@ -52,7 +51,7 @@
         android:text="Multiply"
         app:layout_constraintEnd_toStartOf="@+id/verticalGuideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addButton"/>
+        app:layout_constraintTop_toBottomOf="@+id/addButton" />
 
     <Button
         android:id="@+id/divideButton"
@@ -63,7 +62,7 @@
         android:text="Divide"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/verticalGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/subtractButton"/>
+        app:layout_constraintTop_toBottomOf="@+id/subtractButton" />
 
     <EditText
         android:id="@+id/operandOneEditText"
@@ -75,7 +74,7 @@
         app:layout_constraintBottom_toTopOf="@+id/operandTwoEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="Operand 1"/>
+        tools:text="Operand 1" />
 
     <EditText
         android:id="@+id/operandTwoEditText"
@@ -87,7 +86,7 @@
         app:layout_constraintBottom_toTopOf="@+id/resultTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="Operand 2"/>
+        tools:text="Operand 2" />
 
     <TextView
         android:id="@+id/resultTextView"
@@ -99,6 +98,16 @@
         app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="Result"/>
+        tools:text="Result" />
+
+    <Button
+        android:id="@+id/sayHelloButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Say Hello!"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divideButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

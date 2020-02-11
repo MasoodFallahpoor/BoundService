@@ -4,11 +4,11 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.Bundle
-import android.os.IBinder
+import android.os.*
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import ir.fallahpoor.boundservice.GreeterService.Companion.MSG_SAY_HELLO
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private var isBoundToCalculatorService = false
     private var isBoundToGreeterService = false
     private lateinit var calculatorService: CalculatorService
+    private var messenger: Messenger? = null
     private val calculatorServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, iBinder: IBinder?) {
             /*
@@ -37,17 +38,38 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            Log.d(tag, "Connected to service")
-            isBoundToService = true
-            val binder = service as BoundService.LocalBinder
-            boundService = binder.getService()
+    private val greeterServiceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, iBinder: IBinder?) {
+            logMessage("Connected to GreeterService")
+            messenger = Messenger(iBinder)
+            isBoundToGreeterService = true
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            logMessage("Disconnected from GreeterService")
+            messenger = null
+            isBoundToGreeterService = false
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        sayHelloButton.setOnClickListener {
+            if (isBoundToGreeterService) {
+                val message: Message = Message.obtain(null, MSG_SAY_HELLO, 0, 0)
+                try {
+                    messenger?.send(message)
+                } catch (e: RemoteException) {
+                    e.printStackTrace()
+                }
+            } else {
+                logMessage("Not bound to GreeterService. This should not happen!")
+            }
+        }
+
     }
 
     override fun onStart() {
@@ -55,11 +77,18 @@ class MainActivity : AppCompatActivity() {
         Intent(this, CalculatorService::class.java).also { intent ->
             bindService(intent, calculatorServiceConnection, Context.BIND_AUTO_CREATE)
         }
+        Intent(this, GreeterService::class.java).also { intent ->
+            bindService(intent, greeterServiceConnection, Context.BIND_AUTO_CREATE)
+        }
+    }
 
     override fun onStop() {
         super.onStop()
         if (isBoundToCalculatorService) {
             unbindService(calculatorServiceConnection)
+        }
+        if (isBoundToGreeterService) {
+            unbindService(greeterServiceConnection)
         }
     }
 
